@@ -1,0 +1,64 @@
+NetArch Designer 1.0.0 (fix 4) - installer
+==========================================
+
+What's new in fix 4
+  - Removed the last inventory/compliance leftovers from the screens:
+      * First-time setup no longer asks for "Regulated entity type(s) / RBI references".
+      * Users & Roles lists only the diagram roles (Administrator, Network Architect,
+        Viewer) and shows only diagram/image permissions. The change-approval note
+        is gone. A user who already has an old role (Compliance Officer / Auditor)
+        keeps it until an admin changes it.
+  - Install straight over fix 1/2/3; diagrams, settings and database are kept.
+
+IMPORTANT after upgrading
+  - Close every open NetArch Designer window, then open it again
+    (or press Ctrl+F5 inside the window). A window left open from the old
+    version keeps showing the old tabs until it is reloaded.
+  - Workstations (client-only installs) show whatever the SERVER serves -
+    upgrade the server PC; clients need no reinstall.
+
+Also included from fix 3
+
+  - Diagrams-only. The app now shows just the network architecture
+    diagram tabs: Diagrams & Templates and Device Image Library
+    (plus Users & Roles and System & Backup for admins).
+  - Removed tabs: Dashboard, Sites, Devices, Connectivity, IPAM & VLANs,
+    Firewall Rules, Change Management, RBI Compliance, Audit Log.
+  - The diagram editor no longer shows "Sync inventory" or
+    "Attach as evidence". The app opens straight to Diagrams.
+  - Install straight over fix 2; diagrams, settings and database are kept.
+    No data is deleted - existing inventory/compliance records stay in the
+    database, they are just no longer shown.
+
+
+Also included from fix 2
+  - No more black cmd window. The server now starts in the background
+    with no window, whether it is started by setup, the scheduled task,
+    the desktop app, or by double-clicking it.
+    (server\NetArchServer.exe is now a small window-less starter; the real
+    server is server\NetArchServerCore.exe, unchanged from fix 1.)
+  - Setup waits until the server is ready before it opens the app, so the
+    first launch doesn't show a "cannot connect" screen.
+  - Quieter setup screens (details are still available via "Show details").
+  - Includes the fix 1 SQL Server fix ("Incorrect syntax near '1'").
+
+How to install (on the server, as Administrator)
+  1. Right-click NetArchDesigner-Setup-1.0.0-fix4.exe -> Run as administrator.
+     If SmartScreen warns (the file is unsigned): More info -> Run anyway.
+     Install straight over fix 1, 2 or 3; settings and database are kept.
+  2. Keep "Server" ticked. Tick "Allow LAN access" only for a central server.
+  3. Finish with "Open NetArch Designer now" ticked. The app opens (no cmd window).
+
+Command-line tools (admins only)
+  From an elevated Command Prompt in C:\Program Files\NetArch Designer\server:
+    NetArchServer.exe status        (output appears in the same window)
+  or NetArchServerCore.exe status   (same thing, plain console program)
+
+Silent install (unchanged)
+  NetArchDesigner-Setup-1.0.0-fix4.exe /S
+  NetArchDesigner-Setup-1.0.0-fix4.exe /S /FIREWALL
+  NetArchDesigner-Setup-1.0.0-fix4.exe /S /CLIENT=http://netarch-srv01:8765
+
+If something fails
+  Open http://localhost:8765/api/health in a browser, and check
+  C:\ProgramData\NetArchDesigner\logs\server.log
